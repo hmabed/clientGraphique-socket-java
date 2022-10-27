@@ -7,6 +7,8 @@ package clientgraphique;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -17,6 +19,11 @@ public class tchatFrame extends javax.swing.JFrame {
     /**
      * Creates new form tchatFrame
      */
+    DefaultListModel<String> listedesamis=new DefaultListModel<String>();
+    DefaultListModel<String> listedesinvitationsenvoyees=new DefaultListModel<String>();
+    DefaultListModel<String> listedesinvitationsrecues=new DefaultListModel<String>();
+    DefaultListModel<String> listedesmessages=new DefaultListModel<String>();
+    
     public tchatFrame() {
         initComponents();
     }
@@ -33,7 +40,7 @@ public class tchatFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listamis = new javax.swing.JList<>();
+        listeamis = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         nouveauami = new javax.swing.JTextField();
@@ -41,7 +48,7 @@ public class tchatFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listeinvitationsencours = new javax.swing.JList<>();
+        listeamisinvites = new javax.swing.JList<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         message = new javax.swing.JTextField();
@@ -49,7 +56,7 @@ public class tchatFrame extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listeinvitationsrecus = new javax.swing.JList<>();
+        listeamisinvitants = new javax.swing.JList<>();
         acceptinvitation = new javax.swing.JButton();
         refusinvitation = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -70,7 +77,7 @@ public class tchatFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Liste des amis :");
 
-        jScrollPane1.setViewportView(listamis);
+        jScrollPane1.setViewportView(listeamis);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,7 +152,7 @@ public class tchatFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Liste des invitations envoyées :");
 
-        jScrollPane4.setViewportView(listeinvitationsencours);
+        jScrollPane4.setViewportView(listeamisinvites);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -219,7 +226,7 @@ public class tchatFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Liste des invitations réçues :");
 
-        jScrollPane2.setViewportView(listeinvitationsrecus);
+        jScrollPane2.setViewportView(listeamisinvitants);
 
         acceptinvitation.setText("Accepter");
         acceptinvitation.addActionListener(new java.awt.event.ActionListener() {
@@ -347,6 +354,14 @@ public class tchatFrame extends javax.swing.JFrame {
         //les amis sont stocker dans un fichier ou plus simplement dans un 
         //tableau local au client
         
+        listeamis.setModel(listedesamis);
+        listeamisinvites.setModel(listedesinvitationsenvoyees);
+        listeamisinvitants.setModel(listedesinvitationsrecues);
+        listemessages.setModel(listedesmessages);
+        
+        //uniquement pour le test : une invitation recus, peut être supprimé
+        listedesinvitationsrecues.addElement("toto@gmail.com");
+        
         
         
         //chaque 10 secondes
@@ -414,8 +429,9 @@ public class tchatFrame extends javax.swing.JFrame {
 
         //récupérer la réponse du serveur
         //...
-        
-        
+       
+        //example d'ajout à la liste des amis invites
+        listedesinvitationsenvoyees.addElement(nouveauami.getText());
     }//GEN-LAST:event_invitationActionPerformed
 
     private void acceptinvitationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptinvitationActionPerformed
@@ -434,6 +450,12 @@ public class tchatFrame extends javax.swing.JFrame {
         
         //retirer l'invitation de la liste des invitations reçues
         //...
+        
+        
+        //exemple d'ajouter à la liste des amis
+        int id=listeamisinvitants.getSelectedIndex();
+        String invitant=listedesinvitationsrecues.get(id);
+        listedesamis.addElement(invitant);
         
     }//GEN-LAST:event_acceptinvitationActionPerformed
 
@@ -474,9 +496,9 @@ public class tchatFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JList<String> listamis;
-    private javax.swing.JList<String> listeinvitationsencours;
-    private javax.swing.JList<String> listeinvitationsrecus;
+    private javax.swing.JList<String> listeamis;
+    private javax.swing.JList<String> listeamisinvitants;
+    private javax.swing.JList<String> listeamisinvites;
     private javax.swing.JList<String> listemessages;
     private javax.swing.JTextField message;
     private javax.swing.JTextField nouveauami;
