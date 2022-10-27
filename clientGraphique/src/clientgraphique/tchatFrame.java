@@ -452,11 +452,12 @@ public class tchatFrame extends javax.swing.JFrame {
         //...
         
         
-        //exemple d'ajouter à la liste des amis
+        //exemple d'ajouter à la liste des amis l'invitant
         int id=listeamisinvitants.getSelectedIndex();
         String invitant=listedesinvitationsrecues.get(id);
         listedesamis.addElement(invitant);
-        
+        //retirer de la liste des invitations recues
+        listedesinvitationsrecues.remove(id);
     }//GEN-LAST:event_acceptinvitationActionPerformed
 
     private void refusinvitationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusinvitationActionPerformed
